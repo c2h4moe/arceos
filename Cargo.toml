@@ -35,6 +35,7 @@ members = [
     "crates/spinlock",
     "crates/timer_list",
     "crates/tuple_for_each",
+    "crates/gpio-rpbled-pure-driver",
 
     "modules/axalloc",
     "modules/axconfig",

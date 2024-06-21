@@ -1,0 +1,1 @@
+/home/yinxi/r4l_drivers/linux_raspberrypi/drivers/gpio/exercise-3-gpio/gpio-rpbled-pure-driver/target/debug/libgpio_rpbled_pure_driver.rlib: /home/yinxi/r4l_drivers/linux_raspberrypi/drivers/gpio/exercise-3-gpio/gpio-rpbled-pure-driver/src/lib.rs

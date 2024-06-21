@@ -17,3 +17,5 @@ default = []
 # axstd = { path = "../../../ulib/axstd", features = ["alloc", "fs"], optional = true }
 
 axstd = { path = "../../ulib/axstd", optional = true }
+axhal = { path = "../../modules/axhal" }
+gpio-rpbled-pure-driver = { path = "../../crates/gpio-rpbled-pure-driver" }

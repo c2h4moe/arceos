@@ -1,5 +1,8 @@
-use std::io::{self};
-
+use core::time::Duration;
+use std::{io, thread::sleep};
+use gpio_rpbled_pure_driver::GpioPort;
+use axhal::mem::{self, phys_to_virt, PhysAddr};
+// use gpio_rpbled_pure_driver::{self, GpioPort};
 #[cfg(all(not(feature = "axstd"), unix))]
 
 macro_rules! print_err {
@@ -18,7 +21,8 @@ const CMD_TABLE: &[(&str, CmdHandler)] = &[
     ("help", do_help),
     ("uname", do_uname),
     ("ldr", do_ldr),
-    ("str", do_str)
+    ("str", do_str),
+    ("led", do_led)
 ];
 
 fn do_uname(_args: &str) {
@@ -84,7 +88,7 @@ fn do_ldr(args: &str) {
 }
 
 
-// use crate::mem::phys_to_virt;
+
 // use core::ptr::{read_volatile, write_volatile};
 
 fn do_str(args: &str) {
@@ -132,6 +136,20 @@ fn do_str(args: &str) {
         }
     }
 
+}
+
+pub fn do_led(_args: &str) {
+    const GPIO_BASE: usize = 0xFE200000;
+    let vaddr = phys_to_virt(PhysAddr::from(GPIO_BASE)).as_usize();
+    let port = GpioPort::new(vaddr as *mut u8);
+    port.set_as_output(3);
+    port.led_on(3);
+    println!("now led is: {}", port.get_state(3));
+    println!("now sleep for 2 seconds and turn off led...");
+
+    sleep(Duration::from_secs(2));
+    port.led_off(3);
+    println!("now led is: {}", port.get_state(3));
 }
 
 pub fn run_cmd(line: &[u8]) {

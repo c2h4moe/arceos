@@ -32,9 +32,10 @@ else ifeq ($(filter $(MAKECMDGOALS),clippy unittest unittest_no_fail_fast),) # n
 endif
 
 _cargo_build:
-	@printf "    $(GREEN_C)Building$(END_C) App: $(APP_NAME), Arch: $(ARCH), Platform: $(PLATFORM_NAME), App type: $(APP_TYPE)\n"
+	@printf "   $(GREEN_C)Building$(END_C) App: $(APP_NAME), Arch: $(ARCH), Platform: $(PLATFORM_NAME), App type: $(APP_TYPE)\n"
 ifeq ($(APP_TYPE), rust)
 	$(call cargo_build,--manifest-path $(APP)/Cargo.toml,$(AX_FEAT) $(LIB_FEAT) $(APP_FEAT))
+  # JK:=$(shell echo $(FEATURES))
 	@cp $(rust_elf) $(OUT_ELF)
 else ifeq ($(APP_TYPE), c)
 	$(call cargo_build,-p axlibc,$(AX_FEAT) $(LIB_FEAT))
